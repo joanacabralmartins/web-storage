@@ -1,7 +1,31 @@
 const btnSalvarLocalmente = document.getElementById('salvarLocalmente')
 btnSalvarLocalmente.addEventListener('click', salvarTextoLocalmente)
 
-atualizarContadorVisitas();
+atualizarContadorVisitas()
+
+var temaEscolhido = localStorage.getItem("temaEscolhido");
+if (temaEscolhido) {
+    aplicarTema(temaEscolhido)
+    document.getElementById("temaToggle").checked = (temaEscolhido === 'dark')
+}
+
+document.getElementById("temaToggle").addEventListener("change", function() {
+    if (this.checked) {
+        aplicarTema('dark')
+        localStorage.setItem("temaEscolhido", 'dark')
+    } else {
+        aplicarTema('light'); 
+        localStorage.setItem("temaEscolhido", 'light')
+    }
+});
+
+function aplicarTema(preferencia) {
+    if (preferencia === 'dark') {
+        document.body.classList.add('dark-theme')
+    } else {
+        document.body.classList.remove('dark-theme')
+    }
+}
 
 function salvarTextoLocalmente() {
     const variavelSalva = document.getElementById('inputTexto').value
